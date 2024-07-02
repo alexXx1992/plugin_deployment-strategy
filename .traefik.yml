@@ -1,0 +1,12 @@
+displayName: Demo Plugin
+type: middleware
+iconPath: .assets/icon.png
+
+import: github.com/traefik/plugindemo
+
+summary: '[Demo] Request Header'
+
+testData:
+  Headers:
+    X-Demo: '{ "cabecera1": "valor1",  "cabecera2": "valor2" }'
+    X-URL: '{{URL}}'

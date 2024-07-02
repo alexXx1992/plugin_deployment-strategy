@@ -1,0 +1,6 @@
+# plugins-local.yml
+experimental:
+  plugins:
+    myplugin:
+      moduleName: "github.com/usuario/mi-plugin"
+      version: "v0.1.0"
