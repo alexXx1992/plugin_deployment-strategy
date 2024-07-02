@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/traefik/plugindemo"
+	plugindemo "git.uxxi.net/projects/PIL/repos/uxxi_devops_deployment-strategy"
 )
 
 func TestDemo(t *testing.T) {

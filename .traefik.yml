@@ -1,12 +1,12 @@
-displayName: Demo Plugin
+displayName: Deployment Strategy
 type: middleware
 iconPath: .assets/icon.png
 
-import: github.com/traefik/plugindemo
+import: git.uxxi.net/projects/PIL/repos/uxxi_devops_deployment-strategy
 
-summary: '[Demo] Request Header'
+summary: 'Request header for deployment strategy'
 
 testData:
   Headers:
-    X-Demo: '{ "cabecera1": "valor1",  "cabecera2": "valor2" }'
+    X-Demo: '{ "blue": "valor1",  "green": "valor2" }'
     X-URL: '{{URL}}'
