@@ -2,6 +2,7 @@ package plugindemo_test
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -13,7 +14,6 @@ func TestDemo(t *testing.T) {
 	cfg := plugindemo.CreateConfig()
 	cfg.Headers["X-Host"] = "[[.Host]]"
 	cfg.Headers["X-Method"] = "[[.Method]]"
-	cfg.Headers["X-URL"] = "[[.URL]]"
 	cfg.Headers["X-URL"] = "[[.URL]]"
 	cfg.Headers["X-Demo"] = "{ \"blue\": \"valor1\",  \"green\": \"valor2\" }"
 
@@ -33,11 +33,12 @@ func TestDemo(t *testing.T) {
 	}
 
 	handler.ServeHTTP(recorder, req)
-
+	fmt.Println("Cabeceras finales: ", req.Header)
 	assertHeader(t, req, "X-Host", "localhost")
 	assertHeader(t, req, "X-URL", "http://localhost")
 	assertHeader(t, req, "X-Method", "GET")
-	assertHeader(t, req, "X-Demo", "{ \"blue\": \"valor1\",  \"green\": \"valor2\" }")
+	assertHeader(t, req, "S-Blue", "valor1")
+	assertHeader(t, req, "S-green", "valor2")
 }
 
 func assertHeader(t *testing.T, req *http.Request, key, expected string) {

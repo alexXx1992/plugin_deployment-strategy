@@ -35,12 +35,15 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 	if len(config.Headers) == 0 {
 		return nil, fmt.Errorf("headers cannot be empty")
 	}
-	splitJson(config.Headers)
+
+	splitHeaderJson(config.Headers)
+	delete(config.Headers, "X-Demo")
+
 	return &Demo{
 		headers:  config.Headers,
 		next:     next,
 		name:     name,
-		template: template.New("demo").Delims("[[", "]]"),
+		template: template.New("template").Delims("[[", "]]"),
 	}, nil
 }
 
@@ -64,19 +67,20 @@ func (a *Demo) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 
 	a.next.ServeHTTP(rw, req)
 }
-func splitJson(headers map[string]string) {
+func splitHeaderJson(headers map[string]string) Demo {
+	fmt.Println("Cabeceras iniciales: ", headers)
 	jsonStr := headers["X-Demo"]
-	fmt.Println(jsonStr)
 
-	// Parsea el JSON original a un mapa de Go
+	// Parsea el JSON original a un mapa
 	var obj map[string]interface{}
 	err := json.Unmarshal([]byte(jsonStr), &obj)
 	if err != nil {
 		fmt.Println("Error parsing JSON:", err)
-		return
+		return Demo{}
+	}
+	for key, value := range obj {
+		headers["S-"+key] = fmt.Sprint(value)
 	}
 
-	// Ahora puedes acceder a los valores del mapa
-	fmt.Println(obj["blue"])
-	fmt.Println(obj["green"])
+	return Demo{headers: headers}
 }
