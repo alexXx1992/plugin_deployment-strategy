@@ -1,5 +1,0 @@
-experimental:
-  plugins:
-    myplugin:
-      moduleName: "git.uxxi.net/projects/PIL/repos/uxxi_devops_deployment-strategy"
-      version: "v0.1.0"
