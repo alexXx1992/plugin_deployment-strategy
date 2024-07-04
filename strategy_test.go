@@ -1,4 +1,4 @@
-package plugindemo_test
+package strategy_test
 
 import (
 	"context"
@@ -7,11 +7,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	plugindemo "git.uxxi.net/projects/PIL/repos/uxxi_devops_deployment-strategy"
+	strategy "git.uxxi.net/projects/PIL/repos/uxxi_devops_deployment-strategy"
 )
 
-func TestDemo(t *testing.T) {
-	cfg := plugindemo.CreateConfig()
+func TestStrategy(t *testing.T) {
+	cfg := strategy.CreateConfig()
 	cfg.Headers["X-Host"] = "[[.Host]]"
 	cfg.Headers["X-Method"] = "[[.Method]]"
 	cfg.Headers["X-URL"] = "[[.URL]]"
@@ -20,7 +20,7 @@ func TestDemo(t *testing.T) {
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, err := plugindemo.New(ctx, next, cfg, "demo-plugin")
+	handler, err := strategy.New(ctx, next, cfg, "demo-plugin")
 	if err != nil {
 		t.Fatal(err)
 	}

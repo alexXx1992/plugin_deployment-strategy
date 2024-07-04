@@ -1,5 +1,5 @@
 // Package plugindemo a demo plugin.
-package plugindemo
+package strategy
 
 import (
 	"bytes"
@@ -22,7 +22,6 @@ func CreateConfig() *Config {
 	}
 }
 
-// Demo a Demo plugin.
 type Demo struct {
 	next     http.Handler
 	headers  map[string]string
@@ -30,7 +29,7 @@ type Demo struct {
 	template *template.Template
 }
 
-// New created a new Demo plugin.
+// New plugin.
 func New(ctx context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
 	if len(config.Headers) == 0 {
 		return nil, fmt.Errorf("headers cannot be empty")
